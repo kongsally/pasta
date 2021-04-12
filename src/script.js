@@ -3,8 +3,30 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import PenneRigate from './pastaShape/penneRigate.js'
+import Taglierini from './pastaShape/taglierini.js'
+import Strozzapreti from './pastaShape/strozzapreti.js'
 import pointVertexShader from './shaders/point/vertex.glsl'
 import pointFragmentShader from './shaders/point/fragment.glsl'
+
+let pastas = [];
+
+function addPastaMesh(pasta_geom, scene) {
+  let phong = new THREE.MeshBasicMaterial({ color: 0xcccc55});
+  let mesh = new THREE.Mesh(pasta_geom, phong);
+  scene.add(mesh);
+
+  let edge_geom = new THREE.EdgesGeometry(pasta_geom);
+  let wire_mtl = new THREE.LineBasicMaterial({ color: 0xdddd55, linewidth: 2 });
+  let wireframe = new THREE.LineSegments(edge_geom, wire_mtl);
+  scene.add(wireframe);
+
+  let point_mtl = new THREE.ShaderMaterial({
+    vertexShader: pointVertexShader,
+    fragmentShader: pointFragmentShader
+  });
+  let pasta_points = new THREE.Points(pasta_geom, point_mtl);
+  scene.add(pasta_points);
+}
 
 function main () {
   const sizes = {
@@ -19,9 +41,9 @@ function main () {
     canvas: canvas
   })
 
-  camera.position.x = 5
-  camera.position.y = 25
-  camera.position.z = 4
+  camera.position.x = 0
+  camera.position.y = -1.8
+  camera.position.z = 0.5
   scene.add(camera)
 
   const controls = new OrbitControls(camera, canvas)
@@ -29,33 +51,31 @@ function main () {
 
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-  let material = new THREE.ShaderMaterial({
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    vertexShader: pointVertexShader,
-    fragmentShader: pointFragmentShader
-  })
+  renderer.setClearColor(0xeeeeee, 1.0)
 
   let penne_geom = PenneRigate()
-  let points = new THREE.Points(penne_geom, material)
-  scene.add(points)
+  pastas.push(penne_geom)
+  penne_geom.scale(0.03, 0.03, 0.03)
+  penne_geom.translate(-0.7, 0, 0.5)
+  addPastaMesh(penne_geom, scene)
 
-  let phong = new THREE.MeshBasicMaterial({ color: 0xaaaa00})
-  let mesh = new THREE.Mesh(penne_geom, phong)
-   // scene.add(mesh);
+  let taglierini_geom = Taglierini()
+  pastas.push(taglierini_geom)
+  taglierini_geom.translate(1.0, 0, 0)
+  addPastaMesh(taglierini_geom, scene)
 
-  var geo = new THREE.EdgesGeometry(penne_geom) // or WireframeGeometry( geometry )
-  var mat = new THREE.LineBasicMaterial({ color: 0xbbbb00, linewidth: 2 })
-  var wireframe = new THREE.LineSegments(geo, mat)
-  scene.add(wireframe)
+  let strozzapreti_geom = Strozzapreti()
+  pastas.push(strozzapreti_geom)
+  strozzapreti_geom.scale(0.1, 0.1, 0.1)
+  addPastaMesh(strozzapreti_geom, scene)
 
   const clock = new THREE.Clock()
-  function tick () {
-    const elapsedTime = clock.getElapsedTime()
+  function tick (time) {
+    time *= 0.001;
       // Update controls
     controls.update()
       // Render
+
     renderer.render(scene, camera)
       // Call tick again on the next frame
     window.requestAnimationFrame(tick)
@@ -75,7 +95,11 @@ function main () {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   })
 
-  tick()
+  window.addEventListener('click', () => {
+    console.log(camera.position)
+  })
+
+  window.requestAnimationFrame(tick)
 }
 
 main()

@@ -16,7 +16,7 @@ void main() {
     /**
     * Size
     */
-    gl_PointSize = 5.0;
+    gl_PointSize = 2.5;
 
     vColor = color;
 }
