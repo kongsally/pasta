@@ -5,6 +5,7 @@ import * as dat from 'dat.gui'
 import PenneRigate from './pastaShape/penneRigate.js'
 import Taglierini from './pastaShape/taglierini.js'
 import Strozzapreti from './pastaShape/strozzapreti.js'
+import Rombi from './pastaShape/rombi.js'
 import pointVertexShader from './shaders/point/vertex.glsl'
 import pointFragmentShader from './shaders/point/fragment.glsl'
 
@@ -68,6 +69,12 @@ function main () {
   pastas.push(strozzapreti_geom)
   strozzapreti_geom.scale(0.1, 0.1, 0.1)
   addPastaMesh(strozzapreti_geom, scene)
+
+  let rombi_geom = Rombi()
+  rombi_geom.scale(0.3, 0.3, 0.3)
+  rombi_geom.translate(0.5, 0, 0.5)
+  pastas.push(rombi_geom)
+  addPastaMesh(rombi_geom, scene)
 
   const clock = new THREE.Clock()
   function tick (time) {

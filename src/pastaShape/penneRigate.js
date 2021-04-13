@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 // Penne Rigate (a.k.a. Mark Dawson, the simple yet practical man)
-function PenneRigate(scene) {
+function PenneRigate() {
     const positions = []
     const colors = new Float32Array(70 * 150 * 3)
     const indices = []
@@ -48,8 +48,8 @@ function PenneRigate(scene) {
 				const c = indexArray[ y + 1 ][ x + 1 ];
 				const d = indexArray[ y ][ x + 1 ];
 				// faces
-				indices.push( a, b, d );
-				indices.push( b, c, d );
+				indices.push( d, b, a );
+				indices.push(d, c, b );
 			}
 		}
 

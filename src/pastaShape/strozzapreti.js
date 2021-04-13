@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 // Strozzapreti (a.k.a. Daniel Manesh, the Twisted and Semi-open Man)
-function Strozzapreti(scene) {
+function Strozzapreti() {
     const positions = [];
     const colors = [];
     const indices = [];

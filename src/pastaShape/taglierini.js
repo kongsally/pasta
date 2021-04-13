@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 // Taglierini (The Sophie Shears pasta of choice from Broders in Minneapolis)
-function Taglierini(scene) {
+function Taglierini() {
     const positions = []
     const colors = []
     const indices = []
