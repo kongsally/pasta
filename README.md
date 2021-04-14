@@ -6,3 +6,6 @@ Welcome to Sally's pasta palace where you can find a fine selection of pasta sha
 - Tagliereni : Sophie Shears
 - Strozzapreti : Daniel Manesh
 - Rombi : Justin Reppert
+- Giglio Ondulato : Ricky Pai
+- Fusilli Al Ferretto : Sean Chen
+- Fusilli Lunghi Bucati : Aaryan Porwal
