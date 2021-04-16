@@ -5,6 +5,7 @@ function Taglierini() {
     const positions = []
     const colors = []
     const indices = []
+    let normals = [];
 
     let index = 0;
     const indexArray = [];
@@ -25,25 +26,6 @@ function Taglierini() {
             colors.push(r,g,b)
             indexRow.push(index ++)
 
-            /*
-            vertex.x = 0.4 * Math.cos(i/100 * Math.PI)
-            vertex.y = 0.4 * Math.pow(Math.sin(i/4000 * Math.PI), 0.2) * Math.sin(i/100 * Math.PI)
-            vertex.z = 3 * j /200 + 0.1 * Math.sin(i/125 * Math.PI)
-            positions.push(vertex.x, vertex.y, vertex.z)
-            colors.push(r,g,b)
-            indexRow.push(index++)
-
-            vertex.x *= 0.8
-            vertex.y *= 0.9
-            vertex.z *= 1.3
-            positions.push(vertex.x, vertex.y, vertex.z)
-            colors.push(r,g,b)
-
-            vertex.x = 0.3 * Math.cos(i/100 * Math.PI)
-            vertex.y = 0.3 * Math.sin(3 * i / 1000 * Math.PI) * Math.sin(i/50 * Math.PI)
-            vertex.z = -0.05 + 3 * j/200 + 0.1 * Math.sin(i/125 * Math.PI)
-            positions.push(vertex.x, vertex.y, vertex.z)
-            colors.push(r,g,b)*/
         }
         indexArray.push(indexRow);
     }
@@ -58,12 +40,26 @@ function Taglierini() {
 				// faces
 				indices.push( a, b, d );
 				indices.push( b, c, d );
+        //normal
+        let normal = new THREE.Vector3();
+        normal.crossVectors( new THREE.Vector3(
+          positions[3*d]-positions[3*b],
+          positions[3*d+1]-positions[3*b+1],
+          positions[3*d+2]-positions[3*b+2]),
+                             new THREE.Vector3(
+         positions[3*b]-positions[3*a],
+         positions[3*b+1]-positions[3*a+1],
+         positions[3*b+2]-positions[3*a+2]
+         ))
+         normal.normalize();
+         normals.push(normal.x, normal.y, normal.z);
 			}
 		}
 
     let geometry = new THREE.BufferGeometry()
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
+    geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
     geometry.setIndex(indices)
     return geometry
 }

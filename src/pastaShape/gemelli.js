@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
-// Fusilli Lunghi Bucati (a.k.a. Aaryan Porwal "I like how it looks like a necklace")
-function FusilliLunghiBucati() {
+// Gemelli (a.k.a. Alya, the Lady of Duality)
+function Gemelli() {
   const positions = [];
   const colors = [];
   const indices = [];
@@ -11,8 +11,8 @@ function FusilliLunghiBucati() {
   const indexArray = [];
   let vertex = new THREE.Vector3();
 
-  let i_max = 20;
-  let j_max = 200;
+  let i_max = 100;
+  let j_max = 50;
 
   let r, g, b;
   for (let i = 0; i <= i_max; i++) {
@@ -22,26 +22,16 @@ function FusilliLunghiBucati() {
       g = 0.5;
       b = j / j_max;
 
-      let k_0 = 10 + Math.cos(i/10 * Math.PI) + 2 * Math.cos((j+10)/10 * Math.PI) +
-                10*Math.cos((j+140)/160 * Math.PI);
-      let k_1 = 20 + Math.cos(i/10 * Math.PI) + 2 * Math.cos((j+10)/10 * Math.PI);
-      let k_2 = (j+10)/10 * Math.PI;
-      let k_3 = i/10 * Math.PI;
-      let k_4 = 7 + 20 * Math.sin((j-20)/160 * Math.PI);
-      let k_5 = 70 * (0.1 - (j-180)/200);
-
-      if(j>=20 && j<=180){
-        vertex.x = k_0;
-        vertex.y = Math.sin(k_3) + 2 * Math.sin(k_2);
-        vertex.z = k_4;
-      } else if (j<=20) {
-        vertex.x = Math.cos(k_3) + 2 * Math.cos(k_2);
-        vertex.y = Math.sin(k_3) + 2 * Math.sin(k_2);
-        vertex.z = 7 * j / 20;
-      } else {
-        vertex.x = k_1;
-        vertex.z = k_5;
-      }
+      vertex.x =
+        6 *
+        Math.cos((j / 50) * 1.9 * Math.PI + 0.55 * Math.PI) *
+        Math.cos((3 * i) / 25);
+      vertex.y =
+        6 *
+        Math.cos((j / 50) * 1.9 * Math.PI + 0.55 * Math.PI) *
+        Math.sin((3 * i) / 25);
+      vertex.z =
+        8 * Math.sin((j / 50) * 1.9 * Math.PI + 0.55 * Math.PI) + (3 * i) / 4;
 
       positions.push(vertex.x, vertex.y, vertex.z);
       colors.push(r, g, b);
@@ -87,4 +77,4 @@ function FusilliLunghiBucati() {
   return geometry;
 }
 
-export default FusilliLunghiBucati;
+export default Gemelli;

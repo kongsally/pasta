@@ -5,6 +5,7 @@ function FusilliAlFerretto() {
   const positions = [];
   const colors = [];
   const indices = [];
+  let normals = [];
 
   let index = 0;
   const indexArray = [];
@@ -44,6 +45,19 @@ function FusilliAlFerretto() {
       // faces
       indices.push(a, b, d);
       indices.push(b, c, d);
+      //normal
+      let normal = new THREE.Vector3();
+      normal.crossVectors( new THREE.Vector3(
+        positions[3*d]-positions[3*b],
+        positions[3*d+1]-positions[3*b+1],
+        positions[3*d+2]-positions[3*b+2]),
+                           new THREE.Vector3(
+       positions[3*b]-positions[3*a],
+       positions[3*b+1]-positions[3*a+1],
+       positions[3*b+2]-positions[3*a+2]
+       ))
+       normal.normalize();
+       normals.push(normal.x, normal.y, normal.z);
     }
   }
 
@@ -53,6 +67,7 @@ function FusilliAlFerretto() {
     new THREE.Float32BufferAttribute(positions, 3)
   );
   geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+  geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
   geometry.setIndex(indices);
   return geometry;
 }

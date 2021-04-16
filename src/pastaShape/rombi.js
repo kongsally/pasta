@@ -5,6 +5,7 @@ function Rombi() {
     const positions = [];
     const colors = [];
     const indices = [];
+    let normals = [];
 
     let index = 0;
     const indexArray = [];
@@ -23,15 +24,15 @@ function Rombi() {
 
             if (i >= 13 && i <= 37) {
               vertex.x = i/20 + j/25 - 1/20;
-              vertex.z = 0;
+              vertex.y = 0;
             } else if (i<=13) {
               vertex.x = (3 * i / 65) + (j / 25);
-              vertex.z = 0.2 * ((13 - i) / 13) * Math.cos(((2 * j + 12.5) / 25) * Math.PI);
+              vertex.y = 0.2 * ((13 - i) / 13) * Math.cos(((2 * j + 12.5) / 25) * Math.PI);
             } else {
               vertex.x = (3 * i / 65) + (j / 25);
-              vertex.z = (i-37)/65 * Math.cos((2*j + 37.5)/25 * Math.PI);
+              vertex.y = (i-37)/65 * Math.cos((2*j + 37.5)/25 * Math.PI);
             }
-            vertex.y = j/25;
+            vertex.z = j/25;
 
             positions.push(vertex.x, vertex.y, vertex.z);
             colors.push(r,g,b);
@@ -50,12 +51,26 @@ function Rombi() {
 				// faces
 				indices.push( a, b, d );
 				indices.push( b, c, d );
+        //normal
+        let normal = new THREE.Vector3();
+        normal.crossVectors( new THREE.Vector3(
+          positions[3*d]-positions[3*b],
+          positions[3*d+1]-positions[3*b+1],
+          positions[3*d+2]-positions[3*b+2]),
+                             new THREE.Vector3(
+         positions[3*b]-positions[3*a],
+         positions[3*b+1]-positions[3*a+1],
+         positions[3*b+2]-positions[3*a+2]
+         ))
+         normal.normalize();
+         normals.push(normal.x, normal.y, normal.z);
 			}
 		}
 
     let geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
     geometry.setIndex(indices);
     return geometry;
 }

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
-// Fusilli Lunghi Bucati (a.k.a. Aaryan Porwal "I like how it looks like a necklace")
-function FusilliLunghiBucati() {
+// Ravioli Quadrati (a.k.a. Janet Kingori "Squishy")
+function RavioliQuadrati() {
   const positions = [];
   const colors = [];
   const indices = [];
@@ -11,36 +11,36 @@ function FusilliLunghiBucati() {
   const indexArray = [];
   let vertex = new THREE.Vector3();
 
-  let i_max = 20;
-  let j_max = 200;
+  const i_max = 100;
+  const j_max = 100;
 
-  let r, g, b;
   for (let i = 0; i <= i_max; i++) {
     const indexRow = [];
     for (let j = 0; j <= j_max; j++) {
-      r = i / i_max;
-      g = 0.5;
-      b = j / j_max;
+      const r = i / i_max;
+      const g = 0.5;
+      const b = j / j_max;
 
-      let k_0 = 10 + Math.cos(i/10 * Math.PI) + 2 * Math.cos((j+10)/10 * Math.PI) +
-                10*Math.cos((j+140)/160 * Math.PI);
-      let k_1 = 20 + Math.cos(i/10 * Math.PI) + 2 * Math.cos((j+10)/10 * Math.PI);
-      let k_2 = (j+10)/10 * Math.PI;
-      let k_3 = i/10 * Math.PI;
-      let k_4 = 7 + 20 * Math.sin((j-20)/160 * Math.PI);
-      let k_5 = 70 * (0.1 - (j-180)/200);
+      vertex.x =
+        i / 2 +
+        0.4 *
+          Math.sin(((j + 2.5) / 5) * Math.PI) *
+          (Math.pow(Math.sin((i / 200) * Math.PI), 0.2) -
+            Math.pow(Math.cos((i / 200) * Math.PI), 0.2));
+      vertex.z =
+        j / 2 +
+        0.4 *
+          Math.sin(((11 * i + 25) / 50) * Math.PI) *
+          (Math.pow(Math.sin((j / 200) * Math.PI), 0.2) -
+            Math.pow(Math.cos((j / 200) * Math.PI), 0.2));
 
-      if(j>=20 && j<=180){
-        vertex.x = k_0;
-        vertex.y = Math.sin(k_3) + 2 * Math.sin(k_2);
-        vertex.z = k_4;
-      } else if (j<=20) {
-        vertex.x = Math.cos(k_3) + 2 * Math.cos(k_2);
-        vertex.y = Math.sin(k_3) + 2 * Math.sin(k_2);
-        vertex.z = 7 * j / 20;
-      } else {
-        vertex.x = k_1;
-        vertex.z = k_5;
+      if (j > 10 && j < 90 && i > 10 && i < 90) {
+        vertex.y =
+          10 *
+          Math.pow(Math.sin(((i - 10) / 80) * Math.PI), 0.6) *
+          Math.pow(Math.sin(((j - 10) / 80) * Math.PI), 0.6);
+      } else if (j < 10 || i < 10) {
+        vertex.y = 0;
       }
 
       positions.push(vertex.x, vertex.y, vertex.z);
@@ -87,4 +87,4 @@ function FusilliLunghiBucati() {
   return geometry;
 }
 
-export default FusilliLunghiBucati;
+export default RavioliQuadrati;

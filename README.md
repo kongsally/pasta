@@ -9,3 +9,6 @@ Welcome to Sally's pasta palace where you can find a fine selection of pasta sha
 - Giglio Ondulato : Ricky Pai
 - Fusilli Al Ferretto : Sean Chen
 - Fusilli Lunghi Bucati : Aaryan Porwal
+- Gemelli : Alya Amarsy
+- Radiatori : Evan Schwartz
+- Ravioli Quadrati : Janet Kingori

@@ -5,6 +5,7 @@ function GiglioOndulato() {
     let positions = [];
     let colors = [];
     let indices = [];
+    let normals = [];
 
     let index = 0;
     let indexArray = [];
@@ -31,7 +32,7 @@ function GiglioOndulato() {
                       0.08 * (Math.sin(j/40 * Math.PI) + 0.03 * Math.cos(j/5*Math.PI))
             vertex.y =(0.6 + 0.03 * Math.pow((40 -j)/40, 10) *
                       Math.sin(4*i/15 * Math.PI) - 0.5 * Math.pow(Math.sin(j/80 * Math.PI), 0.6)) * beta
-            vertex.z = 1.1 * j/40 + 0.7 * (1 - Math.sin((150-i)/300 * Math.PI))
+            vertex.z = -1.1 * j/40 - 0.7 * (1 - Math.sin((150-i)/300 * Math.PI))
 
             positions.push(vertex.x, vertex.y, vertex.z);
             colors.push(r,g,b);
@@ -50,12 +51,27 @@ function GiglioOndulato() {
 				// faces
 				indices.push( a, b, d );
 				indices.push( b, c, d );
+
+        //normal
+        let normal = new THREE.Vector3();
+        normal.crossVectors( new THREE.Vector3(
+          positions[3*d]-positions[3*b],
+          positions[3*d+1]-positions[3*b+1],
+          positions[3*d+2]-positions[3*b+2]),
+                             new THREE.Vector3(
+         positions[3*b]-positions[3*a],
+         positions[3*b+1]-positions[3*a+1],
+         positions[3*b+2]-positions[3*a+2]
+         ))
+         normal.normalize();
+         normals.push(normal.x, normal.y, normal.z);
 			}
 		}
 
     let geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
     geometry.setIndex(indices);
     return geometry;
 }
