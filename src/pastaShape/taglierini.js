@@ -12,10 +12,11 @@ function Taglierini() {
     const vertex = new THREE.Vector3();
 
     let r,g,b
-    for (let i = 0; i <= 1000; i++) {
+    const i_max = 1000;
+    for (let i = 0; i <= i_max; i++) {
         const indexRow = [];
         for (let j = 0; j <= 2; j++) {
-            r = i/1000.0
+            r = i/i_max
             g = 0.5
             b = j / 2.0
 
@@ -30,7 +31,7 @@ function Taglierini() {
         indexArray.push(indexRow);
     }
 
-    for ( let y = 0; y < 1000; y ++ ) {
+    for ( let y = 0; y < i_max; y ++ ) {
 		    for ( let x = 0; x < 2; x ++ ) {
 				// we use the index array to access the correct indices
 				const a = indexArray[ y ][ x ];

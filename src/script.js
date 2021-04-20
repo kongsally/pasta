@@ -19,14 +19,15 @@ let pastas = [];
 
 function addPastaMesh(pasta_geom, scene) {
 
-  let phong = new THREE.MeshBasicMaterial({ color: 0xcccc55 });
+  let phong = new THREE.MeshPhongMaterial({ color: 0xdddd55,
+                                            side: THREE.DoubleSide });
   let mesh = new THREE.Mesh(pasta_geom, phong);
   scene.add(mesh);
 
   let edge_geom = new THREE.EdgesGeometry(pasta_geom);
   let wire_mtl = new THREE.LineBasicMaterial({ color: 0xdddd55, linewidth: 2 });
   let wireframe = new THREE.LineSegments(edge_geom, wire_mtl);
-  scene.add(wireframe);
+  //scene.add(wireframe);
 
   let point_mtl = new THREE.ShaderMaterial({
     vertexShader: pointVertexShader,
@@ -59,7 +60,7 @@ function main() {
   camera.position.z = 2.0;
   scene.add(camera);
 
-  const skyColor = 0xB1E1FF;  // light blue
+  const skyColor = 0xFFFFB1;  // light blue
   const groundColor = 0xB97A20;  // brownish orange
   const light = new THREE.HemisphereLight(skyColor, groundColor, 0.7);
   scene.add(light);
