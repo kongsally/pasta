@@ -12,6 +12,7 @@ import GiglioOndulato from "./pastaShape/giglioOndulato.js";
 import Gemelli from "./pastaShape/gemelli.js";
 import Radiatori from "./pastaShape/radiatori.js";
 import RavioliQuadrati from "./pastaShape/ravioliQuadrati.js";
+import Farfalle from "./pastaShape/farfalle.js"
 import pointVertexShader from "./shaders/point/vertex.glsl";
 import pointFragmentShader from "./shaders/point/fragment.glsl";
 
@@ -19,9 +20,8 @@ let pastas = [];
 
 function addPastaMesh(pasta_geom, scene) {
 
-  let phong = new THREE.MeshPhongMaterial({ color: 0xdddd55,
-                                            side: THREE.DoubleSide });
-  let mesh = new THREE.Mesh(pasta_geom, phong);
+  let mesh_mtl = new THREE.MeshBasicMaterial({ color: 0xdddd55 });
+  let mesh = new THREE.Mesh(pasta_geom, mesh_mtl);
   scene.add(mesh);
 
   let edge_geom = new THREE.EdgesGeometry(pasta_geom);
@@ -57,7 +57,7 @@ function main() {
 
   camera.position.x = 0;
   camera.position.y = -4;
-  camera.position.z = 2.0;
+  camera.position.z = 2.5;
   scene.add(camera);
 
   const skyColor = 0xFFFFB1;  // light blue
@@ -130,6 +130,11 @@ function main() {
   ravioliQ_geom.scale(0.015, 0.015, 0.015);
   ravioliQ_geom.translate(-2.1, 0.0, 1.5);
   addPastaMesh(ravioliQ_geom, scene);
+
+  let farfalle_geom = Farfalle();
+  farfalle_geom.scale(0.015, 0.015, 0.015);
+  farfalle_geom.translate(1.6, 0.0, 1.3);
+  addPastaMesh(farfalle_geom, scene);
 
   const clock = new THREE.Clock();
   function tick(time) {
