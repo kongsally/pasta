@@ -15,3 +15,5 @@ Welcome to Sally's pasta palace where you can find a fine selection of pasta sha
 - Radiatori : Evan Schwartz
 - Ravioli Quadrati : Janet Kingori
 - Farfalle : Linna Li
+- Conchiglioni Rigati : Adam Kelly
+- Gnocchi : Hannah Wolff

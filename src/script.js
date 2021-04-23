@@ -11,8 +11,10 @@ import Rombi from "./pastaShape/rombi.js";
 import GiglioOndulato from "./pastaShape/giglioOndulato.js";
 import Gemelli from "./pastaShape/gemelli.js";
 import Radiatori from "./pastaShape/radiatori.js";
+import ConchiglioniRigati from "./pastaShape/conchiglioniRigati.js"
 import RavioliQuadrati from "./pastaShape/ravioliQuadrati.js";
 import Farfalle from "./pastaShape/farfalle.js"
+import Gnocchi from "./pastaShape/gnocchi.js"
 import pointVertexShader from "./shaders/point/vertex.glsl";
 import pointFragmentShader from "./shaders/point/fragment.glsl";
 
@@ -135,6 +137,16 @@ function main() {
   farfalle_geom.scale(0.015, 0.015, 0.015);
   farfalle_geom.translate(1.6, 0.0, 1.3);
   addPastaMesh(farfalle_geom, scene);
+
+  let conchiglioniR_geom = ConchiglioniRigati();
+  conchiglioniR_geom.scale(0.015, 0.015, 0.015);
+  conchiglioniR_geom.translate(1.2, 0.0, 1.8);
+  addPastaMesh(conchiglioniR_geom, scene);
+
+  let gnocchi_geom = Gnocchi();
+  gnocchi_geom.scale(0.3, 0.3, 0.3);
+  gnocchi_geom.translate(0.2, 0.0, 2.0);
+  addPastaMesh(gnocchi_geom, scene);
 
   const clock = new THREE.Clock();
   function tick(time) {
