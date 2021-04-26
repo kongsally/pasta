@@ -1,6 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import Stats from 'stats-js'
 import * as dat from "dat.gui";
 import FusilliAlFerretto from "./pastaShape/fusilliAlFerretto.js";
 import FusilliLunghiBucati from "./pastaShape/fusilliLunghiBucati.js";
@@ -22,7 +23,7 @@ let pastas = [];
 
 function addPastaMesh(pasta_geom, scene) {
 
-  let mesh_mtl = new THREE.MeshBasicMaterial({ color: 0xdddd55 });
+  let mesh_mtl = new THREE.MeshPhongMaterial({ color: 0xdddd55, side: THREE.DoubleSide });
   let mesh = new THREE.Mesh(pasta_geom, mesh_mtl);
   scene.add(mesh);
 
@@ -44,6 +45,13 @@ function main() {
     width: window.innerWidth,
     height: window.innerHeight
   };
+  const stats = new Stats();
+  stats.setMode(1);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+
   const gui = new dat.GUI();
   const canvas = document.querySelector("canvas.webgl");
   const scene = new THREE.Scene();
@@ -105,7 +113,7 @@ function main() {
   pastas.push(giglioO_geom);
   addPastaMesh(giglioO_geom, scene);
 
-  let fusilliAF_geom = FusilliAlFerretto();
+  let fusilliAF_geom = new FusilliAlFerretto();
   fusilliAF_geom.scale(0.01, 0.01, 0.01);
   fusilliAF_geom.translate(-0.4, 0, 0.7);
   pastas.push(fusilliAF_geom);
@@ -133,12 +141,12 @@ function main() {
   ravioliQ_geom.translate(-2.1, 0.0, 1.5);
   addPastaMesh(ravioliQ_geom, scene);
 
-  let farfalle_geom = Farfalle();
+  let farfalle_geom = new Farfalle();
   farfalle_geom.scale(0.015, 0.015, 0.015);
   farfalle_geom.translate(1.6, 0.0, 1.3);
   addPastaMesh(farfalle_geom, scene);
 
-  let conchiglioniR_geom = ConchiglioniRigati();
+  let conchiglioniR_geom = new ConchiglioniRigati();
   conchiglioniR_geom.scale(0.015, 0.015, 0.015);
   conchiglioniR_geom.translate(1.2, 0.0, 1.8);
   addPastaMesh(conchiglioniR_geom, scene);
@@ -153,9 +161,10 @@ function main() {
     time *= 0.001;
     // Update controls
     controls.update();
+    stats.begin();
     // Render
-
     renderer.render(scene, camera);
+    stats.end();
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
   }
