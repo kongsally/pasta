@@ -16,6 +16,7 @@ import ConchiglioniRigati from "./pastaShape/conchiglioniRigati.js"
 import RavioliQuadrati from "./pastaShape/ravioliQuadrati.js";
 import Farfalle from "./pastaShape/farfalle.js"
 import Gnocchi from "./pastaShape/gnocchi.js"
+import Rigatoni from "./pastaShape/rigatoni.js"
 import pointVertexShader from "./shaders/point/vertex.glsl";
 import pointFragmentShader from "./shaders/point/fragment.glsl";
 
@@ -119,7 +120,7 @@ function main() {
   pastas.push(fusilliAF_geom);
   addPastaMesh(fusilliAF_geom, scene);
 
-  let fusilliLB_geom = FusilliLunghiBucati();
+  let fusilliLB_geom = new FusilliLunghiBucati();
   fusilliLB_geom.scale(0.1, 0.1, 0.1);
   fusilliLB_geom.translate(-1.0, 0.4, 0.2);
   pastas.push(fusilliLB_geom);
@@ -151,10 +152,15 @@ function main() {
   conchiglioniR_geom.translate(1.2, 0.0, 1.8);
   addPastaMesh(conchiglioniR_geom, scene);
 
-  let gnocchi_geom = Gnocchi();
+  let gnocchi_geom = new Gnocchi();
   gnocchi_geom.scale(0.3, 0.3, 0.3);
   gnocchi_geom.translate(0.2, 0.0, 2.0);
   addPastaMesh(gnocchi_geom, scene);
+
+  let rigatoni_geom = new Rigatoni();
+  rigatoni_geom.scale(0.01, 0.01, 0.01);
+  rigatoni_geom.translate(0.5, 0.0, 1.3);
+  addPastaMesh(rigatoni_geom, scene);
 
   const clock = new THREE.Clock();
   function tick(time) {
