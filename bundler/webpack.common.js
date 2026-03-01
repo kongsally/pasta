@@ -8,7 +8,7 @@ module.exports = {
     output:
     {
         filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '../dist'),
     },
     devtool: 'source-map',
     plugins:
@@ -56,41 +56,29 @@ module.exports = {
 
             // Images
             {
-                test: /\.(jpg|png|gif|svg)$/,
-                use:
-                [
-                    {
-                        loader: 'file-loader',
-                        options:
-                        {
-                            outputPath: 'assets/images/'
-                        }
-                    }
-                ]
+                test: /\.(jpg|jpeg|png|gif|svg)$/,
+                type: 'asset/resource',
+                generator:
+                {
+                    filename: 'assets/images/[name][ext]'
+                }
             },
 
             // Fonts
             {
                 test: /\.(ttf|eot|woff|woff2)$/,
-                use:
-                [
-                    {
-                        loader: 'file-loader',
-                        options:
-                        {
-                            outputPath: 'assets/fonts/'
-                        }
-                    }
-                ]
+                type: 'asset/resource',
+                generator:
+                {
+                    filename: 'assets/fonts/[name][ext]'
+                }
             },
 
             // Shaders
             {
                 test: /\.(glsl|vs|fs|vert|frag)$/,
                 exclude: /node_modules/,
-                use: [
-                    'raw-loader'
-                ]
+                type: 'asset/source'
             }
         ]
     }

@@ -1,0 +1,20 @@
+export {
+  BasePasta,
+  ConchiglioniRigati,
+  Farfalle,
+  FusilliAlFerretto,
+  FusilliLunghiBucati,
+  Gemelli,
+  GiglioOndulato,
+  Gnocchi,
+  PenneRigate,
+  Radiatori,
+  RavioliQuadrati,
+  Rigatoni,
+  Rombi,
+  Strozzapreti,
+  Taglierini,
+  PastaGeometry,
+  pastaFactories,
+  pastaNames
+} from "./pastaShape/index.js";

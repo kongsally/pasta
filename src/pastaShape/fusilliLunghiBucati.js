@@ -7,8 +7,6 @@ class FusilliLunghiBucati extends BasePasta {
     super();
     const positions = [];
     const colors = [];
-    const indices = [];
-    let normals = [];
 
     let index = 0;
     const indexArray = [];
